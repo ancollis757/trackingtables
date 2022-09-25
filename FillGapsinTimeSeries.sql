@@ -12,8 +12,11 @@ SELECT
 	,LeftElbowNumb
 	,Notes
 	,ExternalityAdjustment
+
+INTO dbo.NeckInj_GapFilled --Create a new table from the select. Comment out if just want to see result.
+
 FROM
-	dbo.GetNums2(870) --Returns 870 rows, the length of the total number of days if no gaps.
+	dbo.GetNums2(923) --Returns 923 rows, the length of the total number of days if no gaps.
 LEFT OUTER JOIN
 	dbo.NeckInj T
 ON
