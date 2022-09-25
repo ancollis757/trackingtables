@@ -8,7 +8,7 @@ SELECT
 	,RightNumb
 	,LeftPain
 	,LeftNumb
-	,LeftBelowPain
+	,LeftElbowPain
 	,LeftElbowNumb
 	,Notes
 	,ExternalityAdjustment
