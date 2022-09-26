@@ -6,11 +6,24 @@ conn = pyodbc.connect('Driver={SQL Server};'
                       'Database=tracking;'
                       'Trusted_Connection=yes;')
 
+
+
+
 table_name = 'NeckInj'
 cursor = conn.cursor()
-cursor.execute('SELECT * FROM NeckInj') #All text here so no variable names.
+
+fd = open('SummarybyPeriod.sql', 'r') # Open and read the file as a single buffer
+sqlFile = fd.read()
+fd.close()
+
+# all SQL commands (split on ';')
+query = sqlFile.split(';')
+print (query)
+
+
+
+#query = 'SELECT * FROM NeckInj'
+cursor.execute(query)
 
 for i in cursor:
     print(i)
-
-

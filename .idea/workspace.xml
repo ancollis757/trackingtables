@@ -19,14 +19,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Python.time_range_extract">
+}</component>
+  <component name="RunManager" selected="Python.average_by_time">
     <configuration name="average_by_time" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="trackingtables" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -71,8 +71,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.time_range_extract" />
         <item itemvalue="Python.average_by_time" />
+        <item itemvalue="Python.time_range_extract" />
       </list>
     </recent_temporary>
   </component>
