@@ -1,4 +1,4 @@
 SELECT *
-FROM NeckInj
-WHERE NeckInj.LogDate >= (SELECT StartDate FROM NIRefPeriods WHERE PeriodName = 'Orig Log 1')
-AND NeckInj.LogDate <= (SELECT EndDate FROM NIRefPeriods WHERE PeriodName = 'Orig Log 1');
+FROM [Tracking].[dbo].[NeckInj_GapFilled]
+WHERE LogDate >= (SELECT StartDate FROM [Tracking].[dbo].NIRefPeriods WHERE PeriodName = 'Orig Log 1')
+AND LogDate <= (SELECT EndDate FROM [Tracking].[dbo].NIRefPeriods WHERE PeriodName = 'Orig Log 1');
