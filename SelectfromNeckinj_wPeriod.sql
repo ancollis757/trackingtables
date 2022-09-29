@@ -1,13 +1,12 @@
 /****** Script for SelectTopNRows command from SSMS  ******/
-
-SELECT [LogDate]
-      ,[RightPain]
-      ,[RightNumb]
+SELECT TOP (1000) [LogDate]
       ,[LeftPain]
       ,[LeftNumb]
+	  ,[RightPain]
+      ,[RightNumb]
       ,[LeftElbowPain]
       ,[LeftElbowNumb]
       ,[Notes]
       ,[ExternalityAdjustment]
-	  ,[PeriodName]
-FROM [Tracking].[dbo].[NeckInj_New]
+      ,[PeriodName]
+  FROM [Tracking].[dbo].[NeckInj_wPeriod]
