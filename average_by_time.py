@@ -15,12 +15,8 @@ COLUMNS = [
 ]
 
 SQL_FILES = [
-    'SCRIPTUSEONLY_SetCurrentPeriodEnd_ToToday.sql'
-    ,'Neckinj_withperiods_joined.sql'
-    ,'SCRIPTUSEONLY_SetCurrentPeriodEnd_NULL.sql'
+    'NeckInj_withperiod_Ontable.sql'
 ]
-
-
 
 """"
 NOTES:
@@ -60,13 +56,7 @@ for file in SQL_FILES:
     query = all_queries_in_file[0] # Extract the first query.
     query_list.append(query)
 
-# Run update to set today's date as end of current period in the SQL table.
-cursor.execute(query_list[0])
-
 # Get out the update, using today's date as the end of the current period.
 neckinj_Table = pd.read_sql(query,cnxn)
 summary = neckinj_Table.groupby(['PeriodName']).mean()
 print(summary)
-
-# Run update to change end of current period back to Null.
-cursor.execute(query_list[0])
