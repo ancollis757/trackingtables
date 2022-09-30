@@ -3,41 +3,24 @@ import pandas as pd
 from datetime import datetime
 
 REPORT_COLUMNS = [
-    'LogStart'
-    ,'LogEnd'
-    ,'LeftPain'
-    ,'LeftNumb'
-    ,'RightPain'
-    ,'RightNumb'
-    ,'NeckTotal'
-    ,'LeftElbowPain'
-    ,'LeftElbowNumb'
+    'LogStart',
+    'LogEnd',
+    'LeftPain',
+    'LeftNumb',
+    'RightPain',
+    'RightNumb',
+    'NeckTotal',
+    'LeftElbowPain',
+    'LeftElbowNumb'
 ]
 
-SQL_FILES = [
-    'SelectfromNeckinj_wPeriod.sql'
-]
+SQL_FILE = 'SelectfromNeckinj_wPeriod.sql'
 
 FILENAME_STEM = 'NI_Report_'
 
-""""
-NOTES:
-The pd.read_sql method cannot be used as the type of connection database I have is not supported.
-"""
+OUTPUT_LOCATION = 'C:\\Users\\nicko\\Desktop\\Reports\\'
 
-"""
-DELIVERABLES:
-
-Average of each numb and pain, by period.
-Date of latest entry.
-Each period given its names and date period.
-
-NOTING LONG TERM GOAL OF AUTOMATED REPORTING:
-
-All the above ported to an excel spreadsheet in a standard format.
-
-"""
-
+# Make connection to the on-premises database.
 cnxn = pyodbc.connect('Driver={SQL Server};'
                       'Server=DESKTOP-IH85PI5;'
                       'Database=tracking;'
@@ -46,43 +29,38 @@ table_name = 'NeckInj_GapFilled'
 cursor = cnxn.cursor()
 
 # Get out the SQL query
+fd = open(SQL_FILE, 'r')
+sqlFile = fd.read()
+fd.close()
+all_queries_in_file = sqlFile.split(';')  # all SQL commands (split on ';')
+query = all_queries_in_file[0]  # Extract the first query.
 
-query_list = []
-for file in SQL_FILES:
+# Pull data from DB using the query, take the mean and then put into a pandas DF.
+neckinj_Table = pd.read_sql(query, cnxn)
+unformatted_results = neckinj_Table.groupby(['PeriodName']).mean()
+unformatted_results = pd.DataFrame(unformatted_results)  # Making a DF from the group-by object
 
-    fd = open(file, 'r')
-    sqlFile = fd.read()
-    fd.close()
-    all_queries_in_file = sqlFile.split(';') # all SQL commands (split on ';')
-    query = all_queries_in_file[0] # Extract the first query.
-    query_list.append(query)
+# Get out log start as a single column DF, to join with results DF.
+log_Start = neckinj_Table.groupby(['PeriodName']).min()
+log_Start = pd.DataFrame(log_Start)
+log_Start = pd.DataFrame(log_Start['LogDate'])  # Force back to a DF rather than a Series.
+log_Start.rename(columns={"LogDate": "LogStart"}, inplace=True)
 
-# Get out the update, using today's date as the end of the current period.
-neckinj_Table = pd.read_sql(query,cnxn)
-summary = neckinj_Table.groupby(['PeriodName']).mean()
-summary = pd.DataFrame(summary)  # Making a DF from the groupby object
+# Get out log end as a single column DF, to join with results DF.
+log_End = neckinj_Table.groupby(['PeriodName']).max()
+log_End = pd.DataFrame(log_End)
+log_End = pd.DataFrame(log_End['LogDate'])
+log_End.rename(columns={"LogDate": "LogEnd"}, inplace=True)
 
-# Need some intense group by action; getting out min and max for each period.
-# Then order the table by start date (or end date).
-# Drop ExternalityAdjustment for now; not sure how useful it is.
+# Produce the completed report.
+ni_date_ranges = log_End.join(log_Start)  # Join axis not specified; defaults to index.
+ni_report = ni_date_ranges.join(unformatted_results)
+ni_report.sort_values(['LogStart'], axis=0, inplace=True)
+ni_report['NeckTotal'] = ni_report['LeftPain'] + ni_report['LeftNumb'] + ni_report['RightPain'] + ni_report['RightNumb']
+ni_report = ni_report[REPORT_COLUMNS]
 
-summary2 = neckinj_Table.groupby(['PeriodName']).min()
-summary2 = pd.DataFrame(summary2)
-summary2 = pd.DataFrame(summary2['LogDate'])  # Force back to a DF rather than a Series.
-summary2.rename(columns={"LogDate": "LogStart"}, inplace=True)
-
-summary3 = neckinj_Table.groupby(['PeriodName']).max()
-summary3 = pd.DataFrame(summary3)
-summary3 = pd.DataFrame(summary3['LogDate'])
-summary3.rename(columns={"LogDate": "LogEnd"}, inplace=True)
-
-summary4 = summary3.join(summary2)  # Join axis not specified; defaults to index.
-summary5 = summary4.join(summary)
-summary5.sort_values(['LogStart'], axis=0, inplace=True)
-summary5['NeckTotal'] = summary5['LeftPain'] + summary5['LeftNumb'] + summary5['RightPain'] + summary5['RightNumb']
-summary5 = summary5[REPORT_COLUMNS]
-
+# Produce the report file name and export.
 today = datetime.today().strftime('%Y-%m-%d')
 output_filename = FILENAME_STEM + today + '.xlsx'
-
-summary5.to_excel(output_filename, float_format='%.2f')
+output_full = OUTPUT_LOCATION + output_filename
+ni_report.to_excel(output_full, float_format='%.2f')
