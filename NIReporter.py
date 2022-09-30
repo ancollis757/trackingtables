@@ -1,5 +1,6 @@
 import pyodbc
 import pandas as pd
+from datetime import datetime
 
 REPORT_COLUMNS = [
     'LogStart'
@@ -16,6 +17,8 @@ REPORT_COLUMNS = [
 SQL_FILES = [
     'SelectfromNeckinj_wPeriod.sql'
 ]
+
+FILENAME_STEM = 'NI_Report_'
 
 """"
 NOTES:
@@ -79,4 +82,7 @@ summary5.sort_values(['LogStart'], axis=0, inplace=True)
 summary5['NeckTotal'] = summary5['LeftPain'] + summary5['LeftNumb'] + summary5['RightPain'] + summary5['RightNumb']
 summary5 = summary5[REPORT_COLUMNS]
 
-summary5.to_excel('output.xlsx')
+today = datetime.today().strftime('%Y-%m-%d')
+output_filename = FILENAME_STEM + today + '.xlsx'
+
+summary5.to_excel(output_filename, float_format='%.2f')
