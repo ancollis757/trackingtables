@@ -1,8 +1,9 @@
-from datetime import datetime
+import matplotlib.pyplot as plt
 
+x = [3,4,5]
+y = [6,7,8]
 
-FILENAME_STEM = 'NI_Report_'
+myplot = plt.plot(x,y)
+plt.show()
 
-today = datetime.today().strftime('%Y-%m-%d')
-output_filename = FILENAME_STEM + today + '.xlsx'
-print(output_filename)
+print(type(myplot))
