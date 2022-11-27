@@ -1,11 +1,7 @@
-CREATE TABLE NeckInj_New (
+CREATE TABLE WTT (
 	LogDate date,
-	LeftPain smallint,
+	LIT_Minutes smallint,
 	LeftNumb smallint,
-	RightPain smallint,
-	RightNumb smallint,
-	LeftElbowPain smallint,
-	LeftElbowNumb smallint,
+	OW_Minutes smallint,
 	Notes varchar(400),
-	ExternalityAdjustment smallint
 )
