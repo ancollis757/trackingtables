@@ -1,0 +1,13 @@
+-- Declare variables
+DECLARE @DATE_WTT VARCHAR(1000)
+DECLARE @DATE_WTT_PREV VARCHAR(1000)
+DECLARE @count INT
+DECLARE @LIMIT INT
+
+-- Declare a cursor which will store the dates in order ascendent
+DECLARE WTT_DAYLIST_CR CURSOR
+	FOR
+SELECT DISTINCT DATE_WTT
+	from [Tracking].[DBO].[WTT]
+ORDER BY DATE_WTT ASC
+
