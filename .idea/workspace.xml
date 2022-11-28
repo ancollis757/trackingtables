@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3eedd4ca-646e-47c1-b1a3-c8d5a7c0a40e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeckInj_Uploader_FixColumnSwitchError_20220929.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SelectfromNeckinj_wPeriod.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SelectfromNeckinj_wPeriod.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeckInj_Uploader.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/NeckInj_Uploader.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tracking-Import-Export.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tracking-Import-Export.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -11,7 +11,8 @@ TRACKER_NAMES = ['NeckInj', 'WTT']
 TRACKER_TABLE_NAMES = ['NeckInj_wPeriod', 'WTT']
 TRACKER_SPREADSHEET_NAMES = ['NeckInj_Uploader.xlsx', 'WTT_Uploader.xlsx']
 SPREADSHEETS_DIRECTORY = r'C:\Users\nicko\Documents\GitHub\trackingtables'
-SQL_EXTRACT_QUERIES = ['SelectfromNeckinj_wPeriod.sql','']
+SQL_EXTRACT_QUERIES = ['SelectfromNeckinj_wPeriod.sql', '']
+
 
 # Issue of linking to variables not yet fixed. See SQL import method for hard-coding of server and database names.
 # SERVER_STRING = 'Server=DESKTOP-IH85PI5;'  # Cannot insert variable in cnxn statement so global whole string.
@@ -44,10 +45,16 @@ class Tracker:
 
         # Extract the data from the table.
         self.unprocessed_sql_data = pd.read_sql(query, cnxn)
+        print(f"Here is the gapped sql data for {self.tracker_name}")
 
+    def import_live_data(self):
+        print(f"Importing live data for {self.tracker_name}...")
+        self.raw_live = pd.read_excel(self.tracker_spreadsheet_name, sheet_name='Scratch_Formatter')
+        print(f"Here is the raw spreadsheet data for {self.raw_live}")
 
 #################  MAIN RUN  ###############
 
 os.chdir(SPREADSHEETS_DIRECTORY)  # Set current working directory to location of data spreadsheets.
 tracker_1 = Tracker(TRACKER_NAMES[0], TRACKER_TABLE_NAMES[0], TRACKER_SPREADSHEET_NAMES[0], SQL_EXTRACT_QUERIES[0])
 tracker_1.import_sql()
+tracker_1.import_live_data()
