@@ -1,5 +1,4 @@
 import pyodbc
-import pandas as pd
 from datetime import datetime
 from pyxll import xl_func, plot
 import matplotlib.pyplot as plt
@@ -37,14 +36,12 @@ def sql_connection():
 
     # Extract the data from the table.
     wtt_table = pd.read_sql(query, cnxn)
+    wtt_table.set_index('LogDate', inplace=True)
+    print(f"Here is my table one first imported {wtt_table.head(10)}")
     return wtt_table
 
 
-# PLOTTING FUNCTIONALITY NOT YET OPERATIONAL.
-# https://www.pyxll.com/docs/userguide/plotting/matplotlib.html
-@xl_func
 def plot(pd_table):
-
     # Create plot canvas
     plt.style.use("ggplot")
     fig = plt.figure()
@@ -52,8 +49,8 @@ def plot(pd_table):
 
     ax1 = fig.add_subplot(2, 1, 1)  # nrows, ncols, index.
     ax2 = fig.add_subplot(2, 1, 2)  # nrows, ncols, index.
-    pd_table['LIT_Minutes'].sort_values(ascending=True).plot(title='LiT', kind='line', ax=ax1)
-    pd_table['OW_Minutes'].sort_values(ascending=True).plot(title='OW T', kind='line', ax=ax2)
+    pd_table['LIT_Minutes'].plot(title='LiT', kind='line', ax=ax1)
+    pd_table['OW_Minutes'].plot(title='OW T', kind='line', ax=ax2)
 
     plt.show(block=True)
 

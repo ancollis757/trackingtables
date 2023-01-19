@@ -115,7 +115,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="scratch" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="pandas-visualisation-one" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="trackingtables" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -123,11 +123,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop/100 PERSONAL/02 Work inc certs learning applications/03d Excel to Python" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scratch.py" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/Desktop/100 PERSONAL/02 Work inc certs learning applications/03d Excel to Python/pandas-visualisation-one.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -140,9 +140,9 @@
       <list>
         <item itemvalue="Python.TTReporter" />
         <item itemvalue="Python.VisualisationAssignment_Two" />
+        <item itemvalue="Python.pandas-visualisation-one" />
         <item itemvalue="Python.numpy assignment" />
         <item itemvalue="Python.NIReporter" />
-        <item itemvalue="Python.scratch" />
       </list>
     </recent_temporary>
   </component>
