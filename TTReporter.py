@@ -5,23 +5,18 @@ from pyxll import xl_func, plot
 import matplotlib.pyplot as plt
 
 REPORT_COLUMNS = [
-    'LogStart',
-    'LogEnd',
-    'LeftPain',
-    'LeftNumb',
-    'RightPain',
-    'RightNumb',
-    'NITotal',
-    'LeftElbowPain',
-    'LeftElbowNumb'
+    'LogDate',
+    'LIT_Minutes',
+    'OW_Minutes',
+    'Notes',
 ]
-SQL_FILE = 'SelectfromNeckinj_wPeriod.sql'
-FILENAME_STEM = 'NI_Report_'
+SQL_FILE = 'SelectfromWTT.sql'
+FILENAME_STEM = 'WTT_Report_'
 OUTPUT_LOCATION = 'C:\\Users\\nicko\\Desktop\\Reports\\'
 TABLE_NAME = 'NeckInj_GapFilled'
 
-def sql_connection():
 
+def sql_connection():
     # Make connection to the on-premises database.
     cnxn = pyodbc.connect('Driver={SQL Server};'
                           'Server=DESKTOP-IH85PI5;'
@@ -36,8 +31,9 @@ def sql_connection():
     query = all_queries_in_file[0]  # Extract the first query.
 
     # Extract the data from the table.
-    neckinj_Table = pd.read_sql(query, cnxn)
-    return neckinj_Table
+    wtt_table = pd.read_sql(query, cnxn)
+    return wtt_table
+
 
 # PLOTTING FUNCTIONALITY NOT YET OPERATIONAL.
 # https://www.pyxll.com/docs/userguide/plotting/matplotlib.html
@@ -52,9 +48,7 @@ def plot(x_data, y_data):
     plot(fig)
 
 def produce_summary(pd_table):
-
-    pd_table['NITotal'] = pd_table['LeftPain'] + pd_table['LeftNumb'] + pd_table['RightPain'] + \
-                               pd_table['RightNumb']
+    pd_table['WTT_Total'] = pd_table['LIT_Minutes'] + pd_table['OW_Minutes']
     unformatted_results = pd_table.groupby(['PeriodName']).mean()
     unformatted_results = pd.DataFrame(unformatted_results)  # Making a DF from the group-by object
 
@@ -75,13 +69,13 @@ def produce_summary(pd_table):
     pd_table = pd_table[REPORT_COLUMNS]
     return pd_table
 
+
 # Run the query and get out the result.
-neckinj_Table = sql_connection()
-ni_report = produce_summary(neckinj_Table)
+wtt_table = sql_connection()
+wtt_report = produce_summary(wtt_table)
 
 # Produce the report file name and export.
 today = datetime.today().strftime('%Y-%m-%d')
 output_filename = FILENAME_STEM + today + '.xlsx'
 output_full = OUTPUT_LOCATION + output_filename
-ni_report.to_excel(output_full, float_format='%.2f')
-
+wtt_report.to_excel(output_full, float_format='%.2f')
