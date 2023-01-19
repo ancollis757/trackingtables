@@ -3,6 +3,11 @@ import pandas as pd
 from datetime import datetime
 from pyxll import xl_func, plot
 import matplotlib.pyplot as plt
+import matplotlib.ticker as tkr  # For bespoke formatting of graph ticks.
+import numpy as np
+import pandas as pd
+import os
+import datetime as dt
 
 REPORT_COLUMNS = [
     'LogDate',
@@ -38,14 +43,20 @@ def sql_connection():
 # PLOTTING FUNCTIONALITY NOT YET OPERATIONAL.
 # https://www.pyxll.com/docs/userguide/plotting/matplotlib.html
 @xl_func
-def plot(x_data, y_data):
-    # Create the figure and plot the data
-    fig, ax = plt.subplots()
-    ax.plot(x_data, y_data)
-    ax.set(xlabel='date', ylabel='NI Total',
-           title='NI Total by time')
-    ax.grid()
-    plot(fig)
+def plot(pd_table):
+
+    # Create plot canvas
+    plt.style.use("ggplot")
+    fig = plt.figure()
+    fig.suptitle("WTT Plots")
+
+    ax1 = fig.add_subplot(2, 1, 1)  # nrows, ncols, index.
+    ax2 = fig.add_subplot(2, 1, 2)  # nrows, ncols, index.
+    pd_table['LIT_Minutes'].sort_values(ascending=True).plot(title='LiT', kind='line', ax=ax1)
+    pd_table['OW_Minutes'].sort_values(ascending=True).plot(title='OW T', kind='line', ax=ax2)
+
+    plt.show(block=True)
+
 
 def produce_summary(pd_table):
     pd_table['WTT_Total'] = pd_table['LIT_Minutes'] + pd_table['OW_Minutes']
@@ -72,10 +83,10 @@ def produce_summary(pd_table):
 
 # Run the query and get out the result.
 wtt_table = sql_connection()
-wtt_report = produce_summary(wtt_table)
+wtt_plot = plot(wtt_table)
 
 # Produce the report file name and export.
 today = datetime.today().strftime('%Y-%m-%d')
 output_filename = FILENAME_STEM + today + '.xlsx'
 output_full = OUTPUT_LOCATION + output_filename
-wtt_report.to_excel(output_full, float_format='%.2f')
+# wtt_report.to_excel(output_full, float_format='%.2f')
