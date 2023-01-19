@@ -8,6 +8,12 @@ import pandas as pd
 import os
 import datetime as dt
 
+############### TO DOs ######################
+
+# Total by month.
+# Plot of total by month.
+# Results including plots go into an excel report similar to the NI report.
+
 REPORT_COLUMNS = [
     'LogDate',
     'LIT_Minutes',
