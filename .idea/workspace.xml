@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="3eedd4ca-646e-47c1-b1a3-c8d5a7c0a40e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+=======
       <change beforePath="$PROJECT_DIR$/TTReporter.py" beforeDir="false" afterPath="$PROJECT_DIR$/TTReporter.py" afterDir="false" />
+>>>>>>> ace2fffbcc0500e5ffc7255a36531b72573c3ff5
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +33,11 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
+<<<<<<< HEAD
+  <component name="RunManager" selected="Python.NIReporter">
+=======
   <component name="RunManager" selected="Python.TTReporter">
+>>>>>>> ace2fffbcc0500e5ffc7255a36531b72573c3ff5
     <configuration name="NIReporter" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="trackingtables" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -138,11 +145,19 @@
     </configuration>
     <recent_temporary>
       <list>
+<<<<<<< HEAD
+        <item itemvalue="Python.NIReporter" />
+        <item itemvalue="Python.numpy assignment" />
+        <item itemvalue="Python.scratch" />
+        <item itemvalue="Python.average_by_time" />
+        <item itemvalue="Python.time_range_extract" />
+=======
         <item itemvalue="Python.TTReporter" />
         <item itemvalue="Python.VisualisationAssignment_Two" />
         <item itemvalue="Python.pandas-visualisation-one" />
         <item itemvalue="Python.numpy assignment" />
         <item itemvalue="Python.NIReporter" />
+>>>>>>> ace2fffbcc0500e5ffc7255a36531b72573c3ff5
       </list>
     </recent_temporary>
   </component>
