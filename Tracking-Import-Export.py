@@ -9,7 +9,7 @@ import os
 
 TRACKER_NAMES = ['NeckInj', 'WTT']
 TRACKER_TABLE_NAMES = ['NeckInj_wPeriod', 'WTT']
-TRACKER_SPREADSHEET_NAMES = ['NeckInj_Uploader.xlsx', 'WTT_Uploader.xlsx']
+RAW_DATA_FILES = ['WTT_csv_upload.csv', 'NINJ_csv_upload.csv']
 SPREADSHEETS_DIRECTORY = r'C:\Users\nicko\Documents\GitHub\trackingtables'
 SQL_EXTRACT_QUERIES = ['SelectfromNeckinj_wPeriod.sql', '']
 
@@ -49,12 +49,12 @@ class Tracker:
 
     def import_live_data(self):
         print(f"Importing live data for {self.tracker_name}...")
-        self.raw_live = pd.read_excel(self.tracker_spreadsheet_name, sheet_name='Scratch_Formatter')
+        self.raw_live = pd.read_csv(self.tracker_spreadsheet_name)
         print(f"Here is the raw spreadsheet data for {self.raw_live}")
 
 #################  MAIN RUN  ###############
 
 os.chdir(SPREADSHEETS_DIRECTORY)  # Set current working directory to location of data spreadsheets.
-tracker_1 = Tracker(TRACKER_NAMES[0], TRACKER_TABLE_NAMES[0], TRACKER_SPREADSHEET_NAMES[0], SQL_EXTRACT_QUERIES[0])
+tracker_1 = Tracker(TRACKER_NAMES[0], TRACKER_TABLE_NAMES[0], RAW_DATA_FILES[0], SQL_EXTRACT_QUERIES[0])
 tracker_1.import_sql()
 tracker_1.import_live_data()
